@@ -24,5 +24,6 @@ class DetailViewController: UIViewController {
     func configureForAnnotation() {
         locationLabel.text = annotation.title
         view.backgroundColor = annotation.color
+        title = annotation.title
     }
 }

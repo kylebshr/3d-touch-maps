@@ -35,6 +35,7 @@ class MapViewController: UIViewController {
     }
 
     func viewControllerForAnnotation(annotation: Annotation) -> UIViewController? {
+
         guard let viewController = storyboard?.instantiateViewControllerWithIdentifier("DetailViewController") as? DetailViewController else {
             return nil
         }
@@ -43,9 +44,14 @@ class MapViewController: UIViewController {
         return viewController
     }
 
+    /*
+     If the annotation view has a popover, we need to get the rect
+     of the popover *and* the annotation view for the sourceRect.
+     You could also not add the annotation view height, if you
+     would just like the popover to not blur.
+    */
     func rectForAnnotationViewWithPopover(view: MKAnnotationView) -> CGRect? {
 
-        // Look for a popover, and include it in the rect if it exists
         var popover: UIView?
 
         for view in view.subviews {
@@ -56,7 +62,6 @@ class MapViewController: UIViewController {
             }
         }
 
-        // Add the popover to the 3D Touch rect
         if let popover = popover, frame = popover.superview?.convertRect(popover.frame, toView: view) {
             return CGRect(
                 x: frame.origin.x,

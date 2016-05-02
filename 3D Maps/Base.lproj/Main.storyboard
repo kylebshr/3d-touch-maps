@@ -6,7 +6,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Map View Controller-->
+        <!--Map-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="MapViewController" id="BYZ-38-t0r" customClass="MapViewController" customModule="_D_Maps" customModuleProvider="target" sceneMemberID="viewController">
@@ -33,7 +33,9 @@
                             <constraint firstAttribute="trailing" secondItem="ljH-IL-DIZ" secondAttribute="trailing" id="V3D-HJ-KZA"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Erw-P0-zEw"/>
+                    <navigationItem key="navigationItem" title="Map" id="Erw-P0-zEw">
+                        <barButtonItem key="backBarButtonItem" title=" " id="yFa-eD-rgg"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="ljH-IL-DIZ" id="MMU-pa-jQk"/>
                     </connections>
