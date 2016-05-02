@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="HSw-A5-CMI">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Map View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapViewController" id="BYZ-38-t0r" customClass="MapViewController" customModule="_D_Maps" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -15,11 +17,82 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ljH-IL-DIZ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="DOq-l7-DWH"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ljH-IL-DIZ" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Aei-s4-e9a"/>
+                            <constraint firstItem="ljH-IL-DIZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Cxt-NC-bTx"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ljH-IL-DIZ" secondAttribute="bottom" id="Feg-mN-X8U"/>
+                            <constraint firstAttribute="trailing" secondItem="ljH-IL-DIZ" secondAttribute="trailing" id="V3D-HJ-KZA"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Erw-P0-zEw"/>
+                    <connections>
+                        <outlet property="mapView" destination="ljH-IL-DIZ" id="MMU-pa-jQk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1147" y="1047"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="ata-Wq-ECr">
+            <objects>
+                <viewController storyboardIdentifier="DetailViewController" id="pEF-7G-pY5" customClass="DetailViewController" customModule="_D_Maps" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Fno-st-Ny0"/>
+                        <viewControllerLayoutGuide type="bottom" id="vzK-pb-BjQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VWI-My-ycA">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1yc-9z-vEQ">
+                                <rect key="frame" x="20" y="289" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.050980392159999999" green="0.58039215690000001" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="1yc-9z-vEQ" secondAttribute="trailing" id="3Ec-qJ-3tx"/>
+                            <constraint firstItem="1yc-9z-vEQ" firstAttribute="leading" secondItem="VWI-My-ycA" secondAttribute="leadingMargin" id="99l-so-ZJx"/>
+                            <constraint firstItem="1yc-9z-vEQ" firstAttribute="centerY" secondItem="VWI-My-ycA" secondAttribute="centerY" id="evT-o3-t0q"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="locationLabel" destination="1yc-9z-vEQ" id="JUA-KZ-kOa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Qd-6i-VGi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1953" y="1047"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="a6E-XM-Eq0">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HSw-A5-CMI" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uen-1E-XO1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="N2g-3s-ACS"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Hh-Ul-86E" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="355" y="1047"/>
         </scene>
     </scenes>
 </document>
