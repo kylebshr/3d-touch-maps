@@ -16,6 +16,7 @@ class MapViewController: UIViewController {
 
     let annotationViewID = "annotation_view"
     lazy var locationManager = CLLocationManager()
+    var didUpdateRegion = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,10 +99,14 @@ extension MapViewController: MKMapViewDelegate {
 
     func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
 
+        guard !didUpdateRegion else { return }
+
         let span = MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
         let region = MKCoordinateRegion(center: userLocation.coordinate, span: span)
 
         mapView.setRegion(region, animated: true)
+
+        didUpdateRegion = true
     }
 
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
