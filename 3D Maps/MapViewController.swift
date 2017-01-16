@@ -26,7 +26,7 @@ class MapViewController: UIViewController {
     }
 
     func requestLocationPermission() {
-        if CLLocationManager.authorizationStatus() == .NotDetermined {
+        if CLLocationManager.authorizationStatus() == .notDetermined {
             locationManager.requestWhenInUseAuthorization()
         }
     }
@@ -35,9 +35,9 @@ class MapViewController: UIViewController {
         mapView.addAnnotations(AnnotationResource.annotations)
     }
 
-    func viewControllerForAnnotation(annotation: Annotation) -> UIViewController? {
+    func viewController(for annotation: Annotation) -> UIViewController? {
 
-        guard let viewController = storyboard?.instantiateViewControllerWithIdentifier("DetailViewController") as? DetailViewController else {
+        guard let viewController = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else {
             return nil
         }
 
@@ -51,7 +51,7 @@ class MapViewController: UIViewController {
      You could also not add the annotation view height, if you
      would just like the popover to not blur.
     */
-    func rectForAnnotationViewWithPopover(view: MKAnnotationView) -> CGRect? {
+    func rectForAnnotationViewWithPopover(_ view: MKAnnotationView) -> CGRect? {
 
         var popover: UIView?
 
@@ -63,7 +63,7 @@ class MapViewController: UIViewController {
             }
         }
 
-        if let popover = popover, frame = popover.superview?.convertRect(popover.frame, toView: view) {
+        if let popover = popover, let frame = popover.superview?.convert(popover.frame, to: view) {
             return CGRect(
                 x: frame.origin.x,
                 y: frame.origin.y,
@@ -78,26 +78,26 @@ class MapViewController: UIViewController {
 
 extension MapViewController: MKMapViewDelegate {
 
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
 
         guard let annotation = annotation as? Annotation else {
             return nil
         }
 
-        if let annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(annotationViewID) {
+        if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationViewID) {
             annotationView.annotation = annotation
             return annotationView
         }
         else {
             let annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: annotationViewID)
-            annotationView.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
+            annotationView.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             annotationView.canShowCallout = true
-            registerForPreviewingWithDelegate(self, sourceView: annotationView)
+            registerForPreviewing(with: self, sourceView: annotationView)
             return annotationView
         }
     }
 
-    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
 
         guard !didUpdateRegion else { return }
 
@@ -109,8 +109,8 @@ extension MapViewController: MKMapViewDelegate {
         didUpdateRegion = true
     }
 
-    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        if let annotation = view.annotation as? Annotation, viewController = viewControllerForAnnotation(annotation) {
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if let annotation = view.annotation as? Annotation, let viewController = viewController(for: annotation) {
             navigationController?.pushViewController(viewController, animated: true)
         }
     }
@@ -118,7 +118,7 @@ extension MapViewController: MKMapViewDelegate {
 
 extension MapViewController: UIViewControllerPreviewingDelegate {
 
-    func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
 
         guard let annotationView = previewingContext.sourceView as? MKPinAnnotationView else {
             return nil
@@ -131,10 +131,10 @@ extension MapViewController: UIViewControllerPreviewingDelegate {
             previewingContext.sourceRect = popoverFrame
         }
 
-        return viewControllerForAnnotation(annotation)
+        return viewController(for: annotation)
     }
 
-    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
 }
